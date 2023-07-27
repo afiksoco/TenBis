@@ -11,7 +11,6 @@ const port = process.env.PORT || 3001;
 dotenv.config();
 app.use(express.json());
 app.use(cors());
-console.log(process.env.MONGO_URL);
 
 // localhost:3001/api/patients
 app.use('/api/restaurants', restRouter);
