@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const { restRouter } = require('./router');
+const { restRouter } = require('./routers/restaurant.router');
 
 
 const app = express();
@@ -12,11 +12,13 @@ dotenv.config();
 app.use(express.json());
 app.use(cors());
 
-// localhost:3001/api/patients
 app.use('/api/restaurants', restRouter);
 //app.use('/api/users', userRouter);
 //app.use('/orders', orderRouter);
 
+app.use((req, res) => {
+    res.status(500).send("something is broken");
+ });
 mongoose
     .set("strictQuery", false)
     .connect(process.env.MONGO_URL)
@@ -37,9 +39,7 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 //
 
 //
-// app.use((req, res) => {
-//     res.status(500).send("something is broken");
-// });
+
 // // app.all('*', (req, res) => {
 // //     res.status(500).send("something is broken");
 // // })
